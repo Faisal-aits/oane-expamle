@@ -103,8 +103,18 @@ const CustomCursor = () => {
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
+  const publicBase = import.meta.env.BASE_URL || '/';
+  const base = publicBase.endsWith('/') ? publicBase : `${publicBase}/`;
+  const rawPath = window.location.pathname;
+  const normalizedPath = rawPath === base.slice(0, -1)
+    ? '/'
+    : rawPath.startsWith(base)
+      ? rawPath.slice(base.length - 1)
+      : rawPath;
+  const initialEntry = `${normalizedPath}${window.location.search}${window.location.hash}`;
+
   return (
-    <MemoryRouter basename={import.meta.env.BASE_URL}>
+    <MemoryRouter basename={base} initialEntries={[initialEntry]}>
       <ScrollToTop />
       <SmoothScrolling />
       <AnimatePresence mode="wait">
