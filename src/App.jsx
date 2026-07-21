@@ -104,17 +104,17 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const publicBase = import.meta.env.BASE_URL || '/';
-  const base = publicBase.endsWith('/') ? publicBase : `${publicBase}/`;
+  const basename = publicBase === '/' ? '/' : publicBase.replace(/\/$$/, '');
   const rawPath = window.location.pathname;
-  const normalizedPath = rawPath === base.slice(0, -1)
-    ? '/'
-    : rawPath.startsWith(base)
-      ? rawPath.slice(base.length - 1)
+  const normalizedPath = basename === '/'
+    ? rawPath
+    : rawPath.startsWith(basename)
+      ? rawPath.slice(basename.length) || '/'
       : rawPath;
   const initialEntry = `${normalizedPath}${window.location.search}${window.location.hash}`;
 
   return (
-    <MemoryRouter basename={base} initialEntries={[initialEntry]}>
+    <MemoryRouter basename={basename} initialEntries={[initialEntry]}>
       <ScrollToTop />
       <SmoothScrolling />
       <AnimatePresence mode="wait">
