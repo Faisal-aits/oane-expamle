@@ -105,13 +105,7 @@ const App = () => {
 
   const publicBase = import.meta.env.BASE_URL || '/';
   const basename = publicBase === '/' ? '/' : publicBase.replace(/\/$$/, '');
-  const rawPath = window.location.pathname;
-  const normalizedPath = basename === '/'
-    ? rawPath
-    : rawPath.startsWith(basename)
-      ? rawPath.slice(basename.length) || '/'
-      : rawPath;
-  const initialEntry = `${normalizedPath}${window.location.search}${window.location.hash}`;
+  const initialEntry = `${window.location.pathname}${window.location.search}${window.location.hash}`;
 
   return (
     <MemoryRouter basename={basename} initialEntries={[initialEntry]}>
