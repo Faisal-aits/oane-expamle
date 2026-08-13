@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { MemoryRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import Lenis from 'lenis';
 
@@ -103,7 +103,7 @@ const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <MemoryRouter basename={import.meta.env.BASE_URL}>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <ScrollToTop />
       <SmoothScrolling />
       <AnimatePresence mode="wait">
@@ -136,7 +136,7 @@ const App = () => {
           </motion.div>
         )}
       </AnimatePresence>
-    </MemoryRouter>
+    </BrowserRouter>
   );
 }
 
